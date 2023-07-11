@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Assistenza Telefoni</title>
+    
+</head>
+<body>
+    <form id="form" action="#" name="modulo1" method="post">
+        <fieldset>
+            <legend>DATI CLIENTE</legend>
+            <div class="line">
+                NOME <input type="text" name="nome" class="casella" tabindex="1" size="15" maxlength="20"/>
+                COGNOME <input type="text" name="cognome" class="casella" tabindex="2" size="15" maxlength="20" />
+                CODICE FISCALE <input type="text" name="codicefiscale" class="casella" tabindex="3" minlength="16" maxlength="16" />
+                CITTÀ <input type="text" name="citta" class="casella" tabindex="4" />
+            </div>
+            <div class="line">
+                GESTORE TELEFONICO <input type="radio" name="gestore" value="tim" id="tim" /> TIM |
+                <input type="radio" name="gestore" value="vodafone" id="vodafone" /> VODAFONE |
+                <input type="radio" name="gestore" value="wind-tre" id="windtre" /> WIND-TRE |
+                <input type="radio" name="gestore" value="altro" id="altro" /> Altro <input type="text" name="altroOperatore" class="casella" disabled /> &nbsp;&nbsp;&nbsp;
+                NUMERO TELEFONICO DISPOSITIVO <input type="tel" name="tel" class="casella" tabindex="4" size="15" maxlength="15" />
+            </div>
+            <div class="line">
+                MARCA DISPOSITIVO <input type="text" name="marca" class="casella" tabindex="5" />
+                MODELLO DISPOSITIVO <input type="text" name="modello" class="casella" tabindex="6" />
+            </div>
+            <div class="line">
+                BREVE DECRIZIONE DEL PROBLEMA <textarea name="descrizione" class="casella" id="textarea" cols="40" rows="4" tabindex="7"></textarea>
+            </div>
+            <div class="line">
+                RECAPITO DI CONTATTO (se diverso dal numero del dispositivo in riparazione) <input type="tel" name="tel2" class="casella" tabindex="8" />
+            </div>
+            <div class="submit">
+                <input type="button" name="button" id="submit" value="Invia" />
+            </div>
+        </fieldset>
+    </form>
+    <div id="risultato">
+        <form id="form2" name="modulo2" method="post">
+            <table class="modulo2">
+                <thead>
+                    <th colspan="2">
+                        Ri-Generation - Via Pavoncelli 118, Bari <br /> Ricevuta di consegna
+                    </th>
+                </thead>
+                <tr>
+                    <td>
+                        Nome
+                    </td>
+                    <td id="nome" class="yellow"></td>
+                </tr>
+                <tr>
+                    <td>
+                        Cognome
+                    </td>
+                    <td id="cognome" class="yellow"></td>
+                </tr>
+                <tr>
+                    <td>
+                        Codice Fiscale
+                    </td>
+                    <td id="codicefiscale" class="yellow"></td>
+                </tr>
+                <tr>
+                    <td>
+                        Città
+                    </td>
+                    <td id="citta" class="yellow"></td>
+                </tr>
+                <tr>
+                    <td>
+                        Gestore telefonico
+                    </td>
+                    <td id="gestore" class="yellow"></td>
+                </tr>
+                <tr>
+                    <td>
+                        Numero di telefono
+                    </td>
+                    <td id="tel" class="yellow"></td>
+                </tr>
+                <tr>
+                    <td>
+                        Marca del dispositivo
+                    </td>
+                    <td id="marca" class="yellow"></td>
+                </tr>
+                <tr>
+                    <td>
+                        Modello del dispositivo
+                    </td>
+                    <td id="modello" class="yellow"></td>
+                </tr>
+                <tr>
+                    <td>
+                        Descizione del probelma
+                    </td>
+                    <td id="descrizione" class="yellow"></td>
+                </tr>
+                <tr>
+                    <td>
+                        Recapito telefonico
+                    </td>
+                    <td id="tel2" class="yellow"></td>
+                </tr>
+            </table>         
+        </form>
+    </div>
+
+    <script>
+
+        document.getElementById("altro").addEventListener("click", abilita); 
+
+        function abilita() {
+            document.modulo1.altroOperatore.disabled = false; 
+            document.modulo1.altroOperatore.focus(); 
+            document.modulo1.altroOperatore.value = recupero;
+        };
+
+        const tim = document.getElementById("tim"); 
+        const vodafone = document.getElementById("vodafone"); 
+        const windtre = document.getElementById("windtre"); 
+
+        [tim, vodafone, windtre].forEach(function(gestore) { 
+            gestore.addEventListener("click", disabilita);
+
+            function disabilita() {
+                recupero = document.modulo1.altroOperatore.value;
+                document.modulo1.altroOperatore.value = "";
+                document.modulo1.altroOperatore.disabled = true; 
+            }
+        });
+        
+        document.getElementById("submit").addEventListener("click", scheda);
+        
+        function scheda() {
+            document.getElementById("nome").innerHTML = document.modulo1.nome.value; // commenta
+            document.getElementById("cognome").innerHTML = document.modulo1.cognome.value; 
+            document.getElementById("codicefiscale").innerHTML = document.modulo1.codicefiscale.value;
+            document.getElementById("citta").innerHTML = document.modulo1.citta.value; 
+            document.getElementById("gestore").innerHTML = document.modulo1.gestore.value; 
+            document.getElementById("tel").innerHTML = document.modulo1.tel.value; 
+            document.getElementById("marca").innerHTML = document.modulo1.marca.value; 
+            document.getElementById("modello").innerHTML = document.modulo1.modello.value; 
+            document.getElementById("descrizione").innerHTML = document.modulo1.descrizione.value; 
+            document.getElementById("tel2").innerHTML = document.modulo1.tel2.value; 
+
+            let contatto = document.modulo1.tel2.value;
+            let operatore = document.modulo1.gestore.value;
+
+            if (contatto == "") {
+                document.getElementById("tel2").innerHTML = document.modulo1.tel.value;
+            }
+
+            if (operatore == "altro") {
+                document.getElementById("gestore").innerHTML = document.modulo1.altroOperatore.value;
+            }
+        }
+   
+    </script>
+</body>
+</html>
