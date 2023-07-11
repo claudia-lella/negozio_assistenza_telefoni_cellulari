@@ -10,5 +10,3 @@ Questo progetto di gruppo è stato fatto da:
  - Emmanuele Di Franco, 
  - Stefano Giovannelli, 
  - Ylenia Balice.
-
- Per visualizzare il lavoro finito, visita questa pagina: [https://partner-github.dxc.com/pages/claudia-lella-93/negozio_assistenza_telefoni_cellulari/](https://partner-github.dxc.com/pages/claudia-lella-93/negozio_assistenza_telefoni_cellulari/)
